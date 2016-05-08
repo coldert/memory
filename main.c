@@ -9,8 +9,6 @@
  * */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 #include "memory.h"
 
@@ -23,11 +21,9 @@ int main(int argc, char **argv)
     int i;
     int gameOn = 1;
     int rounds = 0;
-    int currentPlayer = 1;
     char board[BOARD_X * BOARD_Y] = {0};
     int guess[4] = {-1, -1, -1, -1};
     
-    srand(time(NULL));
     init(board, BOARD_X * BOARD_Y);
     
     printf("### M E M O R Y ###\n");

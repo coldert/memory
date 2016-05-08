@@ -1,8 +1,13 @@
 #include "memory.h"
 
+#include <stdlib.h>
+#include <time.h>
+
 // Populate and randomize the board
 void init(char board[], int size)
 {
+    srand(time(NULL));
+    
     int i;
     int p = size/2;
     char tmp_c;
