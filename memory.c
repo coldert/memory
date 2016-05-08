@@ -63,14 +63,13 @@ void pickCard(char board[], int guess[], int x, int y)
     int row = (guess[0] == -1) ? 0 : 2;
     int col = (guess[1] == -1) ? 1 : 3;
     
-    
     do
     {
         // Subtle indication as to where in the process we're at
         if (row == 0)
             printf("\nPick a card (row col): ");
         else
-            printf("\nPick one more card: ");
+            printf("\nPick a second card: ");
         
         // Take input from player
         scanf("%d %d", &guess[row], &guess[col]);

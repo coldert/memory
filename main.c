@@ -24,11 +24,9 @@ int main(int argc, char **argv)
     char board[BOARD_X * BOARD_Y] = {0};
     int guess[4] = {-1, -1, -1, -1};
     
-
-
     while(gameOn)
     {
-        // Initialize the board if on first round
+        // Initialize the board if on the first round
         if (rounds == 0)
         {
             printf("\n### M E M O R Y ###\n");
