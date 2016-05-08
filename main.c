@@ -12,8 +12,8 @@
 
 #include "memory.h"
 
-#define BOARD_X 4
-#define BOARD_Y 4
+#define BOARD_X 2
+#define BOARD_Y 2
 
 // Main program
 int main(int argc, char **argv)
@@ -24,12 +24,17 @@ int main(int argc, char **argv)
     char board[BOARD_X * BOARD_Y] = {0};
     int guess[4] = {-1, -1, -1, -1};
     
-    init(board, BOARD_X * BOARD_Y);
-    
-    printf("### M E M O R Y ###\n");
+
 
     while(gameOn)
     {
+        // Initialize the board if on first round
+        if (rounds == 0)
+        {
+            printf("\n### M E M O R Y ###\n");
+            init(board, BOARD_X * BOARD_Y);
+        }
+        
         // Present the board
         drawBoard(board, guess, BOARD_X, BOARD_Y);
         
@@ -48,10 +53,24 @@ int main(int argc, char **argv)
         // Prepare for next round
         clearGuess(guess);
         rounds++;
+        
+        if (!gameOn)
+        {
+            char answer;
+            // We have a winner!
+            printf("\n\nYou won in %d rounds!\n", rounds);
+            printf("Want to play again (y/n)? ");
+            getchar(); // Catch lingering input...
+            scanf("%c", &answer);
+            if (answer == 'y')  {
+                gameOn = 1;
+                rounds = 0;
+            };
+        }
     }
     
-    // We have a winner!
-    printf("\n\nYou won in %d rounds!", rounds);
+    // Done for today
+    printf("\n\nBye bye!");
     
 	return 0;
 }
