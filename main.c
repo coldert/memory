@@ -1,16 +1,12 @@
 /* Project: Memory Game 2016-05-06 */
 
 /*
- * TODO: Allow player to select size of board
- *       Make sure the total size of board (X * Y) is an even number no bigger than 26 (A-Z)
- * TODO: Store board size in variables instead of #define
- *       Let's the user chose size, and let's you keep it within boundaries (even number of cards <= 26)
+ * TODO: Refactor more. The whole init routine..? (if rounds = 0, if !gameOn ...)
  * TODO: Two players?
  * TODO: AI?
  * */
 
 #include <stdio.h>
-
 #include "memory.h"
 
 #define MAX_CARDS 26 // A-Z
@@ -21,12 +17,12 @@ int main(int argc, char **argv)
     int i;
     int gameOn = 1; // Keep track of if the game is still active
     int rounds = 0;
-    int board_x = 4;
-    int board_y = 4;
+    int board_x = 0;
+    int board_y = 0;
     char board[MAX_CARDS * 2] = {0}; // Must hold two sets of MAX_CARDS
     int guess[4] = {-1, -1, -1, -1};
-    char answer;
-    int noOfCards;
+    char answer; // Used to hold y/n answers from the player
+    int noOfCards = 8;
     
     while(gameOn)
     {
@@ -34,7 +30,7 @@ int main(int argc, char **argv)
         if (rounds == 0)
         {
             printf("\n### M E M O R Y ###\n\n");
-            printf("Board size is %d x %d. Do you want to change the size (y/n)? ", board_x, board_y);
+            printf("Current board size is %d pairs. Do you want to change the size (y/n)? ", noOfCards);
 
             // Get answer from player
             scanf("%c", &answer);
@@ -44,28 +40,20 @@ int main(int argc, char **argv)
             {
                 do
                 {
-                    printf("How many cards (max %d)? ", MAX_CARDS);
+                    printf("How many pairs (max %d)? ", MAX_CARDS);
                     getchar(); // Catch lingering input...
                     scanf("%d", &noOfCards);
-                    if (noOfCards > MAX_CARDS)
-                    {
-                        printf("To many cards. Max %d.", MAX_CARDS);
-                        continue;
-                    }
-                    else
-                    {
-                        board_x = 2;
-                        board_y = noOfCards;
-                        
-                        // Make a somewhat symetric board
-                        while (board_y > board_x && board_y % 2 == 0)
-                        {
-                            board_x *= 2;
-                            board_y /= 2;
-                        }
-                        break;
-                    }
-                } while(1);
+                } while(noOfCards > MAX_CARDS || noOfCards < 1);
+            }
+
+            board_x = 2;
+            board_y = noOfCards;
+            
+            // Make a somewhat symetric board
+            while (board_y > board_x && board_y % 2 == 0)
+            {
+                board_x *= 2;
+                board_y /= 2;
             }
 
             init(board, board_x * board_y);
