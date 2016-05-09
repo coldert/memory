@@ -48,7 +48,7 @@ void drawBoard(char board[], int guess[], int x, int y)
                 printf(" %2c", board[i*y+j]);
             else if ((guess[0] == i && guess[1] == j) || (guess[2] == i && guess[3] == j))
                 // A currently guessed card
-                printf(" %c", board[i*y+j] - ('a'-'A'));
+                printf(" %2c", board[i*y+j] - ('a'-'A'));
             else
                 // Card with backside up
                 printf("  #");
