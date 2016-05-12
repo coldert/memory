@@ -38,23 +38,10 @@ int main(int argc, char **argv)
             // Let the player change number of cards
             if (answer == 'y')
             {
-                do
-                {
-                    printf("How many pairs (max %d)? ", MAX_CARDS);
-                    getchar(); // Catch lingering input...
-                    scanf("%d", &noOfCards);
-                } while(noOfCards > MAX_CARDS || noOfCards < 1);
+                getNoOfCards(&noOfCards, MAX_CARDS);
             }
-
-            board_x = 2;
-            board_y = noOfCards;
             
-            // Make a somewhat symetric board
-            while (board_y > board_x && board_y % 2 == 0)
-            {
-                board_x *= 2;
-                board_y /= 2;
-            }
+            calculateBoardSize(&board_x, &board_y, noOfCards);
 
             init(board, board_x * board_y);
         }
@@ -71,12 +58,13 @@ int main(int argc, char **argv)
         
         // Correct guess..?
         checkCards(board, guess, board_x, board_y);
-        // See if the board is completely solved
-        gameOn = !checkGame(board, board_x, board_y);
         
         // Prepare for next round
         clearGuess(guess);
         rounds++;
+
+        // See if the board is completely solved
+        gameOn = !checkGame(board, board_x, board_y);
         
         if (!gameOn)
         {

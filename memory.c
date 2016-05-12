@@ -4,6 +4,31 @@
 #include <stdlib.h>
 #include <time.h>
 
+// Let user pick number of cards
+void getNoOfCards(int *noOfCards, int max)
+{
+    do
+    {
+        printf("How many pairs (max %d)? ", max);
+        getchar(); // Catch lingering input...
+        scanf("%d", noOfCards);
+    } while(*noOfCards > max || *noOfCards < 1);
+}
+
+// Calculate width and height of board
+void calculateBoardSize(int *board_x, int *board_y, int noOfCards)
+{
+    *board_x = 2;
+    *board_y = noOfCards;
+
+    // Make a somewhat symetric board
+    while (*board_y > *board_x && *board_y % 2 == 0)
+    {
+        *board_x *= 2;
+        *board_y /= 2;
+    }
+}
+
 // Populate and randomize the board
 void init(char board[], int size)
 {
