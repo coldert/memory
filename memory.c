@@ -5,33 +5,34 @@
 #include <time.h>
 
 // Let user pick number of cards
-void getNoOfCards(int *noOfCards, int max)
+void getNoOfCards(Game *game)
 {
     do
     {
-        printf("How many pairs (max %d)? ", max);
+        printf("How many pairs (max %d)? ", game->maxCards);
         getchar(); // Catch lingering input...
-        scanf("%d", noOfCards);
-    } while(*noOfCards > max || *noOfCards < 1);
+        scanf("%d", &game->noOfCards);
+    } while(game->noOfCards > game->maxCards || game->noOfCards < 1);
 }
 
 // Calculate width and height of board
-void calculateBoardSize(int *board_x, int *board_y, int noOfCards)
+void calculateBoardSize(Game *game)
 {
-    *board_x = 2;
-    *board_y = noOfCards;
+    game->width = 2;
+    game->height = game->noOfCards;
 
     // Make a somewhat symetric board
-    while (*board_y > *board_x && *board_y % 2 == 0)
+    while (game->height > game->width && game->height % 2 == 0)
     {
-        *board_x *= 2;
-        *board_y /= 2;
+        game->width *= 2;
+        game->height /= 2;
     }
 }
 
 // Populate and randomize the board
-void init(char board[], int size)
+void init(char board[], Game *game)
 {
+    int size = game->width * game->height;
     srand(time(NULL));
     
     int i;
@@ -56,8 +57,10 @@ void init(char board[], int size)
 }
 
 // Print the current board
-void drawBoard(char board[], int guess[], int x, int y)
+void drawBoard(char board[], int guess[], Game *game)
 {
+    int x = game->width;
+    int y = game->height;
     int i, j;
     printf("\n   "); // Give numbers to the columns
     for (i = 0; i < y; printf("%3d", ++i));
@@ -83,8 +86,10 @@ void drawBoard(char board[], int guess[], int x, int y)
 }
 
 // Let the player pick a card
-void pickCard(char board[], int guess[], int x, int y)
+void pickCard(char board[], int guess[], Game *game)
 {
+    int x = game->width;
+    int y = game->height;
     // Check if this is the first or second card to pick
     int row = (guess[0] == -1) ? 0 : 2;
     int col = (guess[1] == -1) ? 1 : 3;
@@ -126,8 +131,11 @@ void pickCard(char board[], int guess[], int x, int y)
 }
 
 // Check if the player picked two identical cards
-void checkCards(char board[], int guess[], int x, int y)
+void checkCards(char board[], int guess[], Game *game)
 {
+    int x = game->width;
+    int y = game->height;
+    
     if (board[guess[0] * y + guess[1]] == board[guess[2] * y + guess[3]])
     {
         // If the guess is correct, convert to upper case letter
@@ -142,8 +150,10 @@ void checkCards(char board[], int guess[], int x, int y)
 }
     
 // Check if there are any cards left (unsolved are lower case letters)
-int checkGame(char board[], int x, int y)
+int checkGame(char board[], Game *game)
 {
+    int x = game->width;
+    int y = game->height;
     int i;
     for (i = 0; i < x*y; i++)
     {

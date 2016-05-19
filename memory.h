@@ -1,13 +1,18 @@
 #ifndef MEMORY
 #define MEMORY
 
-void getNoOfCards(int *noOfCards, int max);
-void calculateBoardSize(int *board_x, int *board_y, int noOfCards);
-void init(char board[], int size);
-void drawBoard(char board[], int guess[], int x, int y);
-void pickCard(char board[], int guess[], int x, int y);
-void checkCards(char board[], int guess[], int x, int y);
-int checkGame(char board[], int x, int y);
+// Define a game settings object
+typedef struct gameSettings {
+    int gameOn, rounds, noOfCards, maxCards, width, height;
+} Game;
+
+void getNoOfCards(Game *game);
+void calculateBoardSize(Game *game);
+void init(char board[], Game *game);
+void drawBoard(char board[], int guess[], Game *game);
+void pickCard(char board[], int guess[], Game *game);
+void checkCards(char board[], int guess[], Game *game);
+int checkGame(char board[], Game *game);
 void clearGuess(int guess[]);
 
 #endif

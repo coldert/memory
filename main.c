@@ -10,14 +10,12 @@
 
 #define MAX_CARDS 26 // A-Z
 
-// Define and declare a game settings object
-typedef struct gameSettings {
-    int gameOn, rounds, noOfCards, maxCards, width, height;
-} Game;
+// Create a game object and a pointer to that object
 Game currentGame = {1, 0, 8, MAX_CARDS, 0, 0};
 Game *game = &currentGame;
 
 // Main program
+// Keep argc and argv to let user define board size att program execution in future release
 int main(int argc, char **argv)
 {
     int i;
@@ -25,6 +23,7 @@ int main(int argc, char **argv)
     int guess[4] = {-1, -1, -1, -1};
     char answer; // Used to hold y/n answers from the player
     
+    // Game loop
     while(game->gameOn)
     {
         // Initialize the board if new game
@@ -39,33 +38,33 @@ int main(int argc, char **argv)
             // Let the player change number of cards
             if (answer == 'y')
             {
-                getNoOfCards(&game->noOfCards, game->maxCards);
+                getNoOfCards(game);
             }
             
-            calculateBoardSize(&game->width, &game->height, game->noOfCards);
+            calculateBoardSize(game);
 
-            init(board, game->width * game->height);
+            init(board, game);
         }
         
         // Present the board
-        drawBoard(board, guess, game->width, game->height);
+        drawBoard(board, guess, game);
         
         // Get input from player
         for (i = 0; i < 2; i++)
         {
-            pickCard(board, guess, game->width, game->height);
-            drawBoard(board, guess, game->width, game->height);
+            pickCard(board, guess, game);
+            drawBoard(board, guess, game);
         }
         
         // Correct guess..?
-        checkCards(board, guess, game->width, game->height);
+        checkCards(board, guess, game);
         
         // Prepare for next round
         clearGuess(guess);
         game->rounds++;
 
         // See if the board is completely solved
-        game->gameOn = !checkGame(board, game->width, game->height);
+        game->gameOn = !checkGame(board, game);
         
         if (!game->gameOn)
         {
