@@ -64,7 +64,7 @@ void drawBoard(char board[], int guess[], Game *game)
     int i, j;
     printf("\n   "); // Give numbers to the columns
     for (i = 0; i < y; printf("%3d", ++i));
-    printf("\n");
+    printf("\n\n");
     for (i = 0; i < x; i++)
     {
         printf("%2d ", i+1); // Give number to the rows
