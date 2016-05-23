@@ -133,7 +133,6 @@ void pickCard(char board[], int guess[], Game *game)
 // Check if the player picked two identical cards
 void checkCards(char board[], int guess[], Game *game)
 {
-    int x = game->width;
     int y = game->height;
     
     if (board[guess[0] * y + guess[1]] == board[guess[2] * y + guess[3]])
