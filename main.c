@@ -7,6 +7,7 @@
  *       Store in file (highscore.dat)
  * TODO: Store cards in struct. Not limited to A-Z.
  * TODO: More players
+ * TODO: AI
  * */
 
 #include <stdio.h>
@@ -74,7 +75,6 @@ int main(int argc, char **argv)
         
         if (!game->gameOn)
         {
-            char answer;
             // We have a winner!
             printf("\n\nYou won in %d rounds!\n", game->rounds);
             printf("Want to play again (y/n)? ");

@@ -67,19 +67,19 @@ void drawBoard(char board[], int guess[], Game *game)
     printf("\n\n");
     for (i = 0; i < x; i++)
     {
-        printf("%2d ", i+1); // Give number to the rows
+        printf("%2d  ", i+1); // Give number to the rows
         for (j = 0; j < y; j++)
         {
             // Check what each "card" should be (a, A or #)
             if (board[i*y + j] < 'a')
                 // A correct card
-                printf("  %c", board[i*y+j]);
+                printf(" %c ", board[i*y+j]);
             else if ((guess[0] == i && guess[1] == j) || (guess[2] == i && guess[3] == j))
                 // A currently guessed card
-                printf(" >%c", board[i*y+j] - ('a'-'A'));
+                printf("<%c>", board[i*y+j] - ('a'-'A'));
             else
                 // Card with backside up
-                printf("  #");
+                printf(" # ");
         }
         printf("\n");
     }
