@@ -32,11 +32,9 @@ void calculateBoardSize(Game *game)
 // Populate and randomize the board
 void initBoard(char board[], Game *game)
 {
-    int size = game->width * game->height;
-    srand(time(NULL));
-    
+    int size = game->noOfCards * 2;
+    int p = game->noOfCards;
     int i;
-    int p = size/2;
     char tmp_c;
     int tmp_i;
 
@@ -47,6 +45,7 @@ void initBoard(char board[], Game *game)
     }
 
     // Randomize the board
+    srand(time(NULL));
     for (i = 0; i < size; i++)
     {
         tmp_c = board[i];
