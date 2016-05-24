@@ -30,7 +30,7 @@ void calculateBoardSize(Game *game)
 }
 
 // Populate and randomize the board
-void init(char board[], Game *game)
+void initBoard(char board[], Game *game)
 {
     int size = game->width * game->height;
     srand(time(NULL));
@@ -73,10 +73,10 @@ void drawBoard(char board[], int guess[], Game *game)
             // Check what each "card" should be (a, A or #)
             if (board[i*y + j] < 'a')
                 // A correct card
-                printf(" %2c", board[i*y+j]);
+                printf("  %c", board[i*y+j]);
             else if ((guess[0] == i && guess[1] == j) || (guess[2] == i && guess[3] == j))
                 // A currently guessed card
-                printf(" %2c", board[i*y+j] - ('a'-'A'));
+                printf(" >%c", board[i*y+j] - ('a'-'A'));
             else
                 // Card with backside up
                 printf("  #");

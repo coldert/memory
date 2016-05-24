@@ -8,7 +8,7 @@ typedef struct gameSettings {
 
 void getNoOfCards(Game *game);
 void calculateBoardSize(Game *game);
-void init(char board[], Game *game);
+void initBoard(char board[], Game *game);
 void drawBoard(char board[], int guess[], Game *game);
 void pickCard(char board[], int guess[], Game *game);
 void checkCards(char board[], int guess[], Game *game);

@@ -1,10 +1,12 @@
 /* Project: Memory Game 2016-05-24 */
 
 /*
- * TODO: High Score?
+ * TODO: High Score
  *       Save top 10 rounds.
  *       Present pairs/rounds (1 = perfect score)
  *       Store in file (highscore.dat)
+ * TODO: Store cards in struct. Not limited to A-Z.
+ * TODO: More players
  * */
 
 #include <stdio.h>
@@ -12,7 +14,7 @@
 
 #define MAX_CARDS 26 // A-Z
 
-// Create a game object and a pointer to that object
+// Create a game settings object
 Game currentGame = {1, 0, 8, MAX_CARDS, 0, 0};
 Game *game = &currentGame;
 
@@ -20,10 +22,10 @@ Game *game = &currentGame;
 // Keep argc and argv to let user define board size att program execution in future release
 int main(int argc, char **argv)
 {
-    int i;
-    char board[MAX_CARDS * 2] = {0}; // Must hold two sets of MAX_CARDS
-    int guess[4] = {-1, -1, -1, -1};
+    int i; // Iterator variable
     char answer; // Used to hold y/n answers from the player
+    char board[MAX_CARDS * 2] = {0}; // Must be able to hold two sets of cards
+    int guess[4] = {-1, -1, -1, -1}; // Holds two guesses from the player (x/y * 2)
     
     // Game loop
     while(game->gameOn)
@@ -43,9 +45,11 @@ int main(int argc, char **argv)
                 getNoOfCards(game);
             }
             
+            // Calculate board size (width/height) based on number of cards
             calculateBoardSize(game);
 
-            init(board, game);
+            // Fill board with cards and randomize it
+            initBoard(board, game);
         }
         
         // Present the board
