@@ -1,8 +1,10 @@
-/* Project: Memory Game 2016-05-06 */
+/* Project: Memory Game 2016-05-24 */
 
 /*
- * TODO: Two players?
- * TODO: AI?
+ * TODO: High Score?
+ *       Save top 10 rounds.
+ *       Present pairs/rounds (1 = perfect score)
+ *       Store in file (highscore.dat)
  * */
 
 #include <stdio.h>
